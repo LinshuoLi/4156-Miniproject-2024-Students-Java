@@ -1,0 +1,59 @@
+In Course.java,
+1. Fix incorrect return values for getCourseLocation() and getInstructorName()
+2. Add a new method getEnrolledStudentCount() to the Course class to get the enrolled student number.
+3. Add a new method enrollmentCapacity()to the Course class to get the enrolled capacity of the course.
+4. MissingOverride: The method 'toString()' is missing an @Override annotation.
+
+In Department.java,
+1. Method getNumberOfMajors()has incorrect return values. Initially It returned -this.numberOfMajors,
+   but should return this.numberOfMajors.
+2. getDepartmentChair() method returned a String “this.departmentChair”. It should return
+   this.departmentChair directly.
+3. dropPersonFromMajor() method can cause numberOfMajors be negative since it doesn’t add any if
+   conditions.
+4. toString() method initially returned String "result.toString()" all the time. It should return
+   result.toString().
+5. Overwrite the equals() and hashCode() methods in Department.java to make sure that two
+   Department objects with same values are considered to be equal.
+6. LooseCoupling: Avoid using implementation types like 'HashMap'; use the interface instead.
+7. UnnecessaryImport: after fixed the above LooseCoupling issue, this one came up because
+   'java.util.HashMap' is imported bt not used.
+8. MissingOverride: The method 'toString()' is missing an @Override annotation.
+
+In RouteController.java,
+1. In the /retrieveDept method, there is a logic mismatch. Previously the code returns an HTTP
+   status code of 404 NOT FOUND when the department is found, and 200 OK when it is not found.
+   It should be reversed. That is, return 200 OK when the department is found and return 404 NOT
+   FOUND when the department is not found.
+2. In the retrieveCourse method, there is a logic mismatch as well. Previously the code returns an
+   HTTP status code of 403 Forbidden when it finds the course. Instead, it should return 200 OK
+   when the course is found.
+3. In the getMajorCountFromDept method, there is an error in returning the number of majors in the
+   department. Previously it returns the negative value
+   -departmentMapping.get(deptCode).getNumberOfMajors(). However, it should return
+   departmentMapping.get(deptCode).getNumberOfMajors().
+4. Usage of System.out/err: handleException() method print out errors using
+   "System.out.println(e.toString())". Instead, we should use a logger.
+5. UnnecessaryImport: After change all HashMap to Map, "import java.util.HashMap" is unused and should be delete.
+6. LooseCoupling: Avoid using implementation types like 'HashMap'; use the interface instead
+7. UnusedLocalVariable: Avoid unused local variables such as 'requestedCourse' in method findCourseTime.
+
+In MyFileDatabase.java,
+1. Usage of System.out/err
+   In methods saveContentsToFile(),
+2. Avoid printStackTrace(): in method deSerializeObjectFromFile(), originally using
+   e.printStackTrace(), should use a logger instead.
+3. LooseCoupling: Avoid using implementation types like 'HashMap'; use the interface instead.
+4. ReturnEmptyCollectionRatherThanNull: Return an empty collection rather than null.
+
+In IndividualProjectApplication.java
+1. Usage of System.out/err: in methods run(String[] args) and onTermination(). Fixed by using a logger.
+2. The method 'run(String[])' is missing an @Override annotation.
+3. LiteralsFirstInComparisons: Position literals first in String comparisons in method run(String[] args).
+4. LooseCoupling: Avoid using implementation types like 'HashMap'; use the interface instead.
+
+
+In CourseUnitTests.java,
+1. JUnit 5 tests should be package-private. Reports JUnit 5 test classes and methods that are not
+   package-private. The methods should not be public, protected, or private. This issue also occurs
+   in all my other test files.
