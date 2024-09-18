@@ -62,6 +62,15 @@ public class Department implements Serializable {
   }
 
   /**
+   * Gets the department code offered by the department.
+   *
+   * @return  The department code of the department.
+   */
+  public String getDeptCode() {
+    return this.deptCode;
+  }
+
+  /**
    * Increases the number of majors in the department by one.
    */
   public void addPersonToMajor() {
