@@ -56,41 +56,6 @@ public class RouteController {
   }
 
   /**
-   * Displays String representation of all the courses with the specified course code or displays
-   * the proper error message in response to the request.
-   *
-   * @param courseCode A {@code int} representing the courses the user wishes to retrieve.
-   * @return A {@code ResponseEntity} object containing either the details of the courses that has
-   *     the code and an HTTP 200 response or, an appropriate message indicating the
-   *     proper response.
-   */
-  @GetMapping(value = "/retrieveCourses", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> retrieveCourses(@RequestParam(value = "courseCode") int courseCode) {
-    try {
-      Map<String, Department> departmentMapping;
-      departmentMapping = IndividualProjectApplication.myFileDatabase.getDepartmentMapping();
-      StringBuilder courseInfo = new StringBuilder();
-
-      for (Department department : departmentMapping.values()) {
-        Map<String, Course> courseMapping = department.getCourseSelection();
-        if (courseMapping.containsKey(Integer.toString(courseCode))) {
-          courseInfo.append("Department: ").append(department.getDeptCode())
-              .append("\n Course Info: ").append(courseMapping.get(Integer.toString(courseCode)).toString()).append("\n");
-        }
-      }
-
-      if (courseInfo.length() > 0) {
-        return new ResponseEntity<>(courseInfo.toString(), HttpStatus.OK);
-      } else {
-        return new ResponseEntity<>("Course Not Found", HttpStatus.NOT_FOUND);
-      }
-
-    } catch (Exception e) {
-      return handleException(e);
-    }
-  }
-
-  /**
    * Displays the details of the requested course to the user or displays the proper error message
    * in response to the request.
    *
